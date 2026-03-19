@@ -4,12 +4,12 @@ export default function () {
   const question: string[] = ["one", "two", "three", "four"];
   const answer: string[] = ["ans1", "ans2", "ans3", "ans4"];
   const [progress, setProgress] = useState<number>(0);
-  const [curpage, setCurpage] = useState<number>(0);
-  const [allpage, setAllpage] = useState<number>(question.length - 1);
+  const [curpage, setCurpage] = useState<number>(1);
+  const [allpage, setAllpage] = useState<number>(question.length);
   const [answertoggle, setAnswertoggle] = useState<boolean>(false);
 
   function calculateprogress(page: number) {
-    const barpercent = Math.round((page / allpage) * 100);
+    const barpercent = Math.round(((page-1) / (allpage-1)) * 100);
     setProgress(barpercent);
   }
 
@@ -28,7 +28,7 @@ export default function () {
   function prev() {
     const newpage = curpage - 1;
 
-    if (newpage < 0) {
+    if (newpage <= 0) {
       return;
     } else {
       setCurpage(newpage);
@@ -57,7 +57,7 @@ export default function () {
           }}
         >
           <p style={{ color: `${answertoggle ? "black" : "white"}` }}>
-            {answertoggle ? `${answer[curpage]}` : `${question[curpage]}`}
+            {answertoggle ? `${answer[curpage-1]}` : `${question[curpage-1]}`}
           </p>
         </div>
         <div className="ansborder spread" style={{ height: `20%` }}>
